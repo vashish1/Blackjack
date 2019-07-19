@@ -95,14 +95,16 @@ func absRank(c Card) int {
 }
 
 //Shuffle shuffles the deck of card
-func Shuffle(c []Card) []Card {
-	ret := make([]Card, len(c))
-	r := rand.New(rand.NewSource(time.Now().Unix()))
-	perm := r.Perm(len(c))
-	for i, j := range perm {
-		ret[i] = c[j]
+func Shuffle() func([]Card) []Card {
+	return func(c []Card) []Card {
+		ret := make([]Card, len(c))
+		r := rand.New(rand.NewSource(time.Now().Unix()))
+		perm := r.Perm(len(c))
+		for i, j := range perm {
+			ret[i] = c[j]
+		}
+		return ret
 	}
-	return ret
 }
 
 //Jokers add jokers to the deck
